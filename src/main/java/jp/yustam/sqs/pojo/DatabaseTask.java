@@ -11,7 +11,7 @@ public class DatabaseTask {
   private String host;
   private int port;
   private String dbName;
-  private List<TableInfo> tables;
+  private List<TableItem> tables;
 
   public String getAccessKey() {
     return accessKey;
@@ -69,11 +69,11 @@ public class DatabaseTask {
     this.dbName = dbName;
   }
 
-  public List<TableInfo> getTables() {
+  public List<TableItem> getTables() {
     return tables;
   }
 
-  public void setTables(List<TableInfo> tables) {
+  public void setTables(List<TableItem> tables) {
     this.tables = tables;
   }
 

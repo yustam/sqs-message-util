@@ -1,6 +1,6 @@
 package jp.yustam.sqs.pojo;
 
-public class FileInfo {
+public class FileItem {
 
   private String key;
   private String path;

@@ -8,7 +8,7 @@ public class DownloadTask {
   private String secretKey;
   private String bucket;
   private String host;
-  private List<FileInfo> files;
+  private List<FileItem> files;
 
   public String getAccessKey() {
     return accessKey;
@@ -42,11 +42,11 @@ public class DownloadTask {
     this.host = host;
   }
 
-  public List<FileInfo> getFiles() {
+  public List<FileItem> getFiles() {
     return files;
   }
 
-  public void setFiles(List<FileInfo> files) {
+  public void setFiles(List<FileItem> files) {
     this.files = files;
   }
 
