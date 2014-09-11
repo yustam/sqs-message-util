@@ -1,24 +1,39 @@
 package jp.yustam.sqs;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 import jp.yustam.sqs.mapper.JsonMapper;
 import jp.yustam.sqs.pojo.DatabaseTask;
 import jp.yustam.sqs.pojo.DownloadTask;
 
 import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.AmazonSQSClient;
 import com.amazonaws.services.sqs.model.Message;
 import com.amazonaws.services.sqs.model.ReceiveMessageRequest;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
 
 public class MessageUtils {
 
-  private static AmazonSQS sqs;
+  private static AmazonSQS sqs = new AmazonSQSClient();
   private static String queueUrlDownloadTask;
   private static String queueUrlDatabaseTask;
   private static int waitTimeSeconds;
+
+  static {
+    Properties props = new Properties();
+    try {
+      props.load(ClassLoader.getSystemResourceAsStream("config.properties"));
+      queueUrlDownloadTask = sqs.getQueueUrl(props.getProperty("aws.queue.download")).getQueueUrl();
+      queueUrlDatabaseTask = sqs.getQueueUrl(props.getProperty("aws.queue.database")).getQueueUrl();
+      waitTimeSeconds = Integer.parseInt(props.getProperty("aws.queue.waittime"));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 
   public static void sendDownloadTask(DownloadTask task) {
     String messageBody = JsonMapper.toString(task);
